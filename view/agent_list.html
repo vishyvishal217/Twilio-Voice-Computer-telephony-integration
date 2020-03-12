@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Agent List</title>
+  <link type="text/css" rel="stylesheet" href="//media.twiliocdn.com/taskrouter/quickstart/agent.css" />
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+</head>
+
+<body>
+  <div>
+    <h2>List of workers in Contact Center</h2>
+
+    <script language="javascript">
+
+      $.post("/agent_list", function (data) {
+
+        console.log(data);
+
+        const voice_workers = data;
+
+        for (var i = 0; i < voice_workers.length; i++) {
+
+          var workerSid = voice_workers[i].sid;
+          var workerName = voice_workers[i].friendlyName;
+          var activity = voice_workers[i].activityName;
+
+          $("#workers").append('<a id="link" href="/agents?WorkerSid=' + workerSid + '">' + workerName + ' - ' + activity + '</a><br />');
+
+        }
+
+      });
+
+    </script>
+    <div id="workers" />
+    <a id="link" />
+  </div>
+  <div style="padding-top:1.5em">
+    <a href="/">Back to Main Page</a>
+  </div>
+</body>
+
+</html>
